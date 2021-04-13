@@ -1,21 +1,43 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react"
+import { I18nManager } from 'react-native';
+import { NavigationContainer } from "@react-navigation/native"
+import { createStackNavigator } from "@react-navigation/stack"
+import * as Font from "expo-font"
+import { AppLoading } from "expo"
+import { useState } from "react"
+
+// Support for RTL
+I18nManager.allowRTL(true)
+I18nManager.forceRTL(true)
+
+const Stack = createStackNavigator()
+
+const getFonts = () =>
+    Font.loadAsync({
+        yekan: require("./app/assets/fonts/byekan"),
+        ih: require("./app/assets/fonts/ih")
+    })
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    const [fontLoading, setFontLoading] = useState(false)
+
+    if (fontLoading) {
+        return (
+            <NavigationContainer>
+                <Stack.Navigator>
+                    <Stack.Screen name="Welcome"  />
+                </Stack.Navigator>
+            </NavigationContainer>
+        )
+    } else {
+        return (
+            <AppLoading
+                startAsync={getFonts}
+                onFinish={() => setFontLoading(true)}
+            />
+        )
+    }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const styles = StyleSheet.create({})
+
