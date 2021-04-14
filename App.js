@@ -3,8 +3,9 @@ import { I18nManager, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import * as Font from "expo-font";
-import { AppLoading } from "expo";
-import Welcome from "./app/components/Welcome";
+import AppLoading from "expo-app-loading";
+
+import WelcomeScreen from "./app/screens/WelcomeScreen";
 
 //* Support for RTL
 I18nManager.allowRTL(true);
@@ -34,8 +35,8 @@ const App = () => {
 
     return (
         <NavigationContainer>
-            <Stack.Navigator>
-                <Stack.Screen name="Welcome" component={Welcome} />
+            <Stack.Navigator screenOptions={{ headerShown: false }}>
+                <Stack.Screen name="Welcome" component={WelcomeScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );
