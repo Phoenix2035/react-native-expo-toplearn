@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { I18nManager, View } from "react-native";
+import { I18nManager, View,  } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import * as Font from "expo-font";
@@ -35,12 +35,14 @@ const App = () => {
 
 
     return (
-        <NavigationContainer>
-            <Stack.Navigator screenOptions={{ headerShown: false }}>
-                <Stack.Screen name="Welcome" component={WelcomeScreen} />
-                <Stack.Screen name="Login" component={LoginScreen} />
-            </Stack.Navigator>
-        </NavigationContainer>
+       
+            <NavigationContainer>
+                <Stack.Navigator screenOptions={{ headerShown: false }}>
+                    <Stack.Screen name="Welcome" component={WelcomeScreen} />
+                    <Stack.Screen name="Login" component={LoginScreen} />
+                </Stack.Navigator>
+            </NavigationContainer>
+       
     );
 }
 

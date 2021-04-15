@@ -1,69 +1,82 @@
 import React from "react"
-import { StyleSheet, Text, View, TextInput, Image, } from "react-native"
-import { MaterialCommunityIcons } from "@expo/vector-icons"
+import { StyleSheet, Text, View, Image, Keyboard, TouchableWithoutFeedback } from "react-native"
 import Constants from "expo-constants"
 import { Formik } from "formik"
+import * as Yup from "yup"
+
+
 import CustomButton from "../components/CustomButton"
+import CustomTextInput from "../components/CustomTextInput"
+import ErrorMessage from "../components/ErrorMessage"
+
+
+const validationSchema = Yup.object().shape({
+    email: Yup.string()
+        .required("این فیلد الزامی می باشد")
+        .email("ایمیل معتبر نمی باشد"),
+    password: Yup.string()
+        .required("این فیلد الزامی می باشد")
+        .min(6, "کلمه عبور نباید کمتر از 6 کاراکتر باشد")
+        .max(12, "کلمه عبور نباید بیشتر از 12 کاراکتر باشد"),
+})
 
 
 export default function LoginScreen() {
 
     return (
-        <View style={styles.container}>
-            <Image style={styles.logo} source={require("../assets/logo.png")} />
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={styles.container}>
+                <Image style={styles.logo} source={require("../assets/logo.png")} />
 
-            <Formik
-                initialValues={{ email: "", password: "" }}
-                onSubmit={values => console.log(values)}
-            >
-                {({ handleChange, handleSubmit }) => (
-                    <>
-                        <View style={styles.inputContainer}>
-                            <TextInput
-                                style={styles.textInput}
+                <Formik
+                    initialValues={{ email: "", password: "" }}
+                    onSubmit={values => console.log(values)}
+                    validationSchema={validationSchema}
+                >
+                    {({ handleChange, handleSubmit, errors, setFieldTouched, touched }) => (
+                        <>
+                            <CustomTextInput
                                 placeholder="ایمیل کاربری"
                                 autoCompleteType="email"
                                 autoCorrect={false}
                                 keyboardType="email-address"
                                 placeholderTextColor="royalblue"
+                                icon="email"
                                 onChangeText={handleChange("email")}
+                                onBlur={() => setFieldTouched("email")}
                             />
-                            <MaterialCommunityIcons
-                                style={styles.icon}
-                                name="email"
-                                size={35}
-                                color="dodgerblue"
+                            <ErrorMessage
+                                error={errors.email}
+                                visible={touched.email}
                             />
-                        </View>
 
-                        <View style={styles.inputContainer}>
-                            <TextInput
-                                style={styles.textInput}
+
+                            <CustomTextInput
                                 placeholder="رمز عبور"
                                 autoCompleteType="password"
                                 autoCorrect={false}
                                 placeholderTextColor="royalblue"
                                 secureTextEntry
+                                icon="onepassword"
                                 onChangeText={handleChange("password")}
+                                onBlur={() => setFieldTouched("password")}
                             />
-                            <MaterialCommunityIcons
-                                style={styles.icon}
-                                name="onepassword"
-                                size={35}
-                                color="dodgerblue"
+                            <ErrorMessage
+                                error={errors.password}
+                                visible={touched.password}
                             />
-                        </View>
 
-                        <View style={{ width: "60%" }}>
-                            <CustomButton
-                                title="ورود کاربر"
-                                onPress={handleSubmit}
-                            />
-                        </View>
-                    </>
-                )}
-            </Formik>
-        </View >
+                            <View style={{ width: "60%" }}>
+                                <CustomButton
+                                    title="ورود کاربر"
+                                    onPress={handleSubmit}
+                                />
+                            </View>
+                        </>
+                    )}
+                </Formik>
+            </View >
+        </TouchableWithoutFeedback>
     )
 }
 
@@ -79,26 +92,4 @@ const styles = StyleSheet.create({
         marginTop: 20,
         marginBottom: 40
     },
-    inputContainer: {
-        flexDirection: "row",
-        alignItems: "center",
-        position: "relative"
-    },
-    textInput: {
-        width: "90%",
-        height: 50,
-        backgroundColor: "lightgray",
-        borderRadius: 15,
-        textAlign: "center",
-        fontFamily: "yekan",
-        fontSize: 18,
-        marginBottom: 15
-    },
-    icon: {
-        position: "absolute",
-        right: 10,
-        top: 8,
-        marginBottom: 15,
-    }
-
 })
