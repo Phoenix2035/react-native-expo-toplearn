@@ -6,6 +6,7 @@ import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
 
 import WelcomeScreen from "./app/screens/WelcomeScreen";
+import LoginScreen from "./app/screens/LoginScreen";
 
 //* Support for RTL
 I18nManager.allowRTL(true);
@@ -37,6 +38,7 @@ const App = () => {
         <NavigationContainer>
             <Stack.Navigator screenOptions={{ headerShown: false }}>
                 <Stack.Screen name="Welcome" component={WelcomeScreen} />
+                <Stack.Screen name="Login" component={LoginScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );

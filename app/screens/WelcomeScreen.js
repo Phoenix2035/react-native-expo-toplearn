@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Image, ImageBackground, Button } from 'react-na
 
 import CustomButton from '../components/CustomButton'
 
-export default function Welcome() {
+export default function Welcome({ navigation }) {
     return (
         <ImageBackground
             style={styles.background}
@@ -15,8 +15,16 @@ export default function Welcome() {
                 <Text style={styles.firstText}>خودآموزی، کسب تجربه و ورود به بازار کار</Text>
             </View>
             <View style={styles.buttonContainer}>
-                <CustomButton title="ورود" onPress={() => { }} />
-                <CustomButton title="ثبت نام" onPress={() => { }} />
+                <CustomButton
+                    title="ورود"
+                    color="royalblue"
+                    onPress={() => navigation.navigate("Login")}
+                />
+                <CustomButton
+                    title="ثبت نام"
+                    onPress={() => { }}
+
+                />
             </View>
         </ImageBackground>
     )
