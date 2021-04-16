@@ -4,9 +4,7 @@ import Constants from "expo-constants"
 import { Formik } from "formik"
 import * as Yup from "yup"
 
-
-import CustomButton from "../components/CustomButton"
-import CustomFormField from "../components/forms/CustomFormField"
+import { CustomFormField, CustomFormik, SubmitButton } from "../components/forms"
 
 
 const validationSchema = Yup.object().shape({
@@ -27,43 +25,39 @@ export default function LoginScreen() {
             <View style={styles.container}>
                 <Image style={styles.logo} source={require("../assets/logo.png")} />
 
-                <Formik
+                <CustomFormik
                     initialValues={{ email: "", password: "" }}
                     onSubmit={values => console.log(values)}
                     validationSchema={validationSchema}
                 >
-                    {({ handleSubmit }) => (
-                        <>
-                            <CustomFormField
-                                placeholder="ایمیل"
-                                autoCompleteType="email"
-                                autoCorrect={false}
-                                keyboardType="email-address"
-                                placeholderTextColor="royalblue"
-                                icon="email"
-                                name="email"
-                            />
+                    <CustomFormField
+                        placeholder="ایمیل"
+                        autoCompleteType="email"
+                        autoCorrect={false}
+                        keyboardType="email-address"
+                        placeholderTextColor="royalblue"
+                        icon="email"
+                        name="email"
+                    />
 
-                            <CustomFormField
-                                placeholder="رمز عبور"
-                                autoCompleteType="password"
-                                autoCorrect={false}
-                                placeholderTextColor="royalblue"
-                                secureTextEntry
-                                icon="onepassword"
-                                name="password"
-                            />
+                    <CustomFormField
+                        placeholder="رمز عبور"
+                        autoCompleteType="password"
+                        autoCorrect={false}
+                        placeholderTextColor="royalblue"
+                        secureTextEntry
+                        icon="onepassword"
+                        name="password"
+                    />
 
 
-                            <View style={{ width: "60%" }}>
-                                <CustomButton
-                                    title="ورود کاربر"
-                                    onPress={handleSubmit}
-                                />
-                            </View>
-                        </>
-                    )}
-                </Formik>
+                    <View style={{ width: "60%" }}>
+                        <SubmitButton
+                            title="ورود کاربر"
+                        />
+                    </View>
+
+                </CustomFormik>
             </View >
         </TouchableWithoutFeedback>
     )

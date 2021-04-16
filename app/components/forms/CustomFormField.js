@@ -3,9 +3,9 @@ import { useFormikContext } from "formik"
 
 
 import CustomTextInput from "../CustomTextInput"
-import ErrorMessage from "../ErrorMessage"
+import ErrorMessage from "./ErrorMessage"
 
-export default function CustomFormField({ name,...otherProps }) {
+export default function CustomFormField({ name, ...otherProps }) {
     const { handleChange, errors, setFieldTouched, touched } = useFormikContext()
     return (
         <>

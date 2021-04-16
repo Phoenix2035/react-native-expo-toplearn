@@ -4,9 +4,8 @@ import Constants from "expo-constants"
 import { Formik } from "formik"
 import * as Yup from "yup"
 
+import { CustomFormField, CustomFormik, SubmitButton } from "../components/forms"
 
-import CustomButton from "../components/CustomButton"
-import CustomFormField from "../components/forms/CustomFormField"
 
 
 const validationSchema = Yup.object().shape({
@@ -33,7 +32,7 @@ export default function RegisterScreen() {
             <View style={styles.container}>
                 {/* <Image style={styles.logo} source={require("../assets/logo.png")} /> */}
 
-                <Formik
+                <CustomFormik
                     initialValues={{
                         fullname: "",
                         email: "",
@@ -43,59 +42,53 @@ export default function RegisterScreen() {
                     onSubmit={values => console.log(values)}
                     validationSchema={validationSchema}
                 >
-                    {({ handleSubmit }) => (
-                        <>
-
-                            <CustomFormField
-                                placeholder="نام و نام خانوادگی"
-                                autoCorrect={false}
-                                placeholderTextColor="royalblue"
-                                icon="account-circle"
-                                name="fullname"
-                            />
+                    <CustomFormField
+                        placeholder="نام و نام خانوادگی"
+                        autoCorrect={false}
+                        placeholderTextColor="royalblue"
+                        icon="account-circle"
+                        name="fullname"
+                    />
 
 
-                            <CustomFormField
-                                placeholder="ایمیل"
-                                autoCompleteType="email"
-                                autoCorrect={false}
-                                keyboardType="email-address"
-                                placeholderTextColor="royalblue"
-                                icon="email"
-                                name="email"
-                            />
+                    <CustomFormField
+                        placeholder="ایمیل"
+                        autoCompleteType="email"
+                        autoCorrect={false}
+                        keyboardType="email-address"
+                        placeholderTextColor="royalblue"
+                        icon="email"
+                        name="email"
+                    />
 
 
 
-                            <CustomFormField
-                                placeholder="رمز عبور"
-                                autoCorrect={false}
-                                placeholderTextColor="royalblue"
-                                secureTextEntry
-                                icon="onepassword"
-                                name="password"
-                            />
+                    <CustomFormField
+                        placeholder="رمز عبور"
+                        autoCorrect={false}
+                        placeholderTextColor="royalblue"
+                        secureTextEntry
+                        icon="onepassword"
+                        name="password"
+                    />
 
 
-                            <CustomFormField
-                                placeholder="تکرار رمز عبور"
-                                autoCorrect={false}
-                                placeholderTextColor="royalblue"
-                                secureTextEntry
-                                icon="onepassword"
-                                name="passwordConfirm"
-                            />
+                    <CustomFormField
+                        placeholder="تکرار رمز عبور"
+                        autoCorrect={false}
+                        placeholderTextColor="royalblue"
+                        secureTextEntry
+                        icon="onepassword"
+                        name="passwordConfirm"
+                    />
 
 
-                            <View style={{ width: "60%" }}>
-                                <CustomButton
-                                    title="ثبت نام "
-                                    onPress={handleSubmit}
-                                />
-                            </View>
-                        </>
-                    )}
-                </Formik>
+                    <View style={{ width: "60%" }}>
+                        <SubmitButton
+                            title="ثبت نام "
+                        />
+                    </View>
+                </CustomFormik>
             </View >
         </TouchableWithoutFeedback>
     )
