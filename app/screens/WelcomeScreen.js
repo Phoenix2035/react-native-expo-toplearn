@@ -22,8 +22,7 @@ export default function Welcome({ navigation }) {
                 />
                 <CustomButton
                     title="ثبت نام"
-                    onPress={() => { }}
-
+                    onPress={() => navigation.navigate("Register")}
                 />
             </View>
         </ImageBackground>
