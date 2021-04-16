@@ -6,8 +6,7 @@ import * as Yup from "yup"
 
 
 import CustomButton from "../components/CustomButton"
-import CustomTextInput from "../components/CustomTextInput"
-import ErrorMessage from "../components/ErrorMessage"
+import CustomFormField from "../components/forms/CustomFormField"
 
 
 const validationSchema = Yup.object().shape({
@@ -33,38 +32,28 @@ export default function LoginScreen() {
                     onSubmit={values => console.log(values)}
                     validationSchema={validationSchema}
                 >
-                    {({ handleChange, handleSubmit, errors, setFieldTouched, touched }) => (
+                    {({ handleSubmit }) => (
                         <>
-                            <CustomTextInput
+                            <CustomFormField
                                 placeholder="ایمیل"
                                 autoCompleteType="email"
                                 autoCorrect={false}
                                 keyboardType="email-address"
                                 placeholderTextColor="royalblue"
                                 icon="email"
-                                onChangeText={handleChange("email")}
-                                onBlur={() => setFieldTouched("email")}
-                            />
-                            <ErrorMessage
-                                error={errors.email}
-                                visible={touched.email}
+                                name="email"
                             />
 
-
-                            <CustomTextInput
+                            <CustomFormField
                                 placeholder="رمز عبور"
                                 autoCompleteType="password"
                                 autoCorrect={false}
                                 placeholderTextColor="royalblue"
                                 secureTextEntry
                                 icon="onepassword"
-                                onChangeText={handleChange("password")}
-                                onBlur={() => setFieldTouched("password")}
+                                name="password"
                             />
-                            <ErrorMessage
-                                error={errors.password}
-                                visible={touched.password}
-                            />
+
 
                             <View style={{ width: "60%" }}>
                                 <CustomButton

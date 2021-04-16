@@ -6,8 +6,7 @@ import * as Yup from "yup"
 
 
 import CustomButton from "../components/CustomButton"
-import CustomTextInput from "../components/CustomTextInput"
-import ErrorMessage from "../components/ErrorMessage"
+import CustomFormField from "../components/forms/CustomFormField"
 
 
 const validationSchema = Yup.object().shape({
@@ -35,69 +34,58 @@ export default function RegisterScreen() {
                 {/* <Image style={styles.logo} source={require("../assets/logo.png")} /> */}
 
                 <Formik
-                    initialValues={{ fullname: "", email: "", password: "", passwordConfirm: "" }}
+                    initialValues={{
+                        fullname: "",
+                        email: "",
+                        password: "",
+                        passwordConfirm: ""
+                    }}
                     onSubmit={values => console.log(values)}
                     validationSchema={validationSchema}
                 >
-                    {({ handleChange, handleSubmit, errors, setFieldTouched, touched }) => (
+                    {({ handleSubmit }) => (
                         <>
 
-                            <CustomTextInput
+                            <CustomFormField
                                 placeholder="نام و نام خانوادگی"
                                 autoCorrect={false}
                                 placeholderTextColor="royalblue"
                                 icon="account-circle"
-                                onChangeText={handleChange("fullname")}
-                                onBlur={() => setFieldTouched("fullname")}
-                            />
-                            <ErrorMessage
-                                error={errors.fullname}
-                                visible={touched.fullname}
+                                name="fullname"
                             />
 
-                            <CustomTextInput
+
+                            <CustomFormField
                                 placeholder="ایمیل"
                                 autoCompleteType="email"
                                 autoCorrect={false}
                                 keyboardType="email-address"
                                 placeholderTextColor="royalblue"
                                 icon="email"
-                                onChangeText={handleChange("email")}
-                                onBlur={() => setFieldTouched("email")}
-                            />
-                            <ErrorMessage
-                                error={errors.email}
-                                visible={touched.email}
+                                name="email"
                             />
 
 
-                            <CustomTextInput
+
+                            <CustomFormField
                                 placeholder="رمز عبور"
                                 autoCorrect={false}
                                 placeholderTextColor="royalblue"
                                 secureTextEntry
                                 icon="onepassword"
-                                onChangeText={handleChange("password")}
-                                onBlur={() => setFieldTouched("password")}
-                            />
-                            <ErrorMessage
-                                error={errors.password}
-                                visible={touched.password}
+                                name="password"
                             />
 
-                            <CustomTextInput
+
+                            <CustomFormField
                                 placeholder="تکرار رمز عبور"
                                 autoCorrect={false}
                                 placeholderTextColor="royalblue"
                                 secureTextEntry
                                 icon="onepassword"
-                                onChangeText={handleChange("passwordConfirm")}
-                                onBlur={() => setFieldTouched("passwordConfirm")}
+                                name="passwordConfirm"
                             />
-                            <ErrorMessage
-                                error={errors.passwordConfirm}
-                                visible={touched.passwordConfirm}
-                            />
+
 
                             <View style={{ width: "60%" }}>
                                 <CustomButton
