@@ -1,10 +1,10 @@
 import React from "react"
 import { StyleSheet, Text, View, Image, Keyboard, TouchableWithoutFeedback } from "react-native"
-import Constants from "expo-constants"
 import { Formik } from "formik"
 import * as Yup from "yup"
 
 import { CustomFormField, CustomFormik, SubmitButton } from "../components/forms"
+import Screen from "../components/shared/Screen"
 
 
 
@@ -29,7 +29,7 @@ export default function RegisterScreen() {
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View style={styles.container}>
+            <Screen style={styles.container}>
                 {/* <Image style={styles.logo} source={require("../assets/logo.png")} /> */}
 
                 <CustomFormik
@@ -89,16 +89,15 @@ export default function RegisterScreen() {
                         />
                     </View>
                 </CustomFormik>
-            </View >
+            </Screen >
         </TouchableWithoutFeedback>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         alignItems: "center",
-        marginTop: Constants.statusBarHeight + 120
+        marginTop: 120
     },
     // logo: {
     //     width: 270,

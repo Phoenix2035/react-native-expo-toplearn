@@ -2,7 +2,7 @@ import React from "react"
 import { useFormikContext } from "formik"
 
 
-import CustomTextInput from "../CustomTextInput"
+import CustomTextInput from "../shared/CustomTextInput"
 import ErrorMessage from "./ErrorMessage"
 
 export default function CustomFormField({ name, ...otherProps }) {

@@ -1,11 +1,10 @@
 import React from "react"
 import { StyleSheet, Text, View, Image, Keyboard, TouchableWithoutFeedback } from "react-native"
-import Constants from "expo-constants"
 import { Formik } from "formik"
 import * as Yup from "yup"
 
 import { CustomFormField, CustomFormik, SubmitButton } from "../components/forms"
-
+import Screen from "../components/shared/Screen"
 
 const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -18,17 +17,17 @@ const validationSchema = Yup.object().shape({
 })
 
 
-export default function LoginScreen() {
+export default function LoginScreen({ navigation }) {
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View style={styles.container}>
+            <Screen style={styles.container}>
                 <Image style={styles.logo} source={require("../assets/logo.png")} />
 
                 <CustomFormik
                     initialValues={{ email: "", password: "" }}
-                    onSubmit={values => console.log(values)}
-                    validationSchema={validationSchema}
+                    onSubmit={() => navigation.navigate("TabsNavigator")}
+                // validationSchema={validationSchema}
                 >
                     <CustomFormField
                         placeholder="ایمیل"
@@ -58,16 +57,14 @@ export default function LoginScreen() {
                     </View>
 
                 </CustomFormik>
-            </View >
+            </Screen >
         </TouchableWithoutFeedback>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        alignItems: "center",
-        marginTop: Constants.statusBarHeight
+        alignItems: "center"
     },
     logo: {
         width: 270,

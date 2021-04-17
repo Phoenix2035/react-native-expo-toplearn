@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View, Image, ImageBackground, Button } from 'react-native'
 
-import CustomButton from '../components/CustomButton'
+import CustomButton from '../components/shared/CustomButton'
 
 export default function Welcome({ navigation }) {
     return (

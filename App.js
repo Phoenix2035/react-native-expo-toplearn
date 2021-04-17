@@ -8,6 +8,9 @@ import AppLoading from "expo-app-loading";
 import WelcomeScreen from "./app/screens/WelcomeScreen";
 import LoginScreen from "./app/screens/LoginScreen";
 import RegisterScreen from "./app/screens/RegisterScreen";
+import TabsNavigator from "./app/components/containers/TabsNavigator";
+
+
 
 //* Support for RTL
 I18nManager.allowRTL(true);
@@ -20,6 +23,8 @@ const getFonts = () =>
         yekan: require("./app/assets/fonts/byekan.ttf"),
         ih: require("./app/assets/fonts/ih.ttf"),
     });
+
+
 
 const App = () => {
     const [fontLoading, setFontLoading] = useState(false);
@@ -42,6 +47,7 @@ const App = () => {
                 <Stack.Screen name="Welcome" component={WelcomeScreen} />
                 <Stack.Screen name="Login" component={LoginScreen} />
                 <Stack.Screen name="Register" component={RegisterScreen} />
+                <Stack.Screen name="TabsNavigator" component={TabsNavigator} />
             </Stack.Navigator>
         </NavigationContainer>
 
