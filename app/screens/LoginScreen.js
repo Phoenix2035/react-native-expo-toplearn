@@ -26,7 +26,7 @@ export default function LoginScreen({ navigation }) {
 
                 <CustomFormik
                     initialValues={{ email: "", password: "" }}
-                    onSubmit={() => navigation.navigate("TabsNavigator")}
+                    onSubmit={() => navigation.navigate("TabNavigator")}
                 // validationSchema={validationSchema}
                 >
                     <CustomFormField

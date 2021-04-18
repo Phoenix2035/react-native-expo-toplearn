@@ -2,16 +2,14 @@ import React from 'react';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import AccountScreen from '../../screens/AccountScreen';
-import CoursesScreen from '../../screens/CoursesScreen';
-import MyCoursesScreen from '../../screens/MyCoursesScreen';
+
+import { AccountScreen, CoursesScreen, MyCoursesScreen } from "../screens"
 
 
 
-const Tab = createBottomTabNavigator();
+export default function TabNavigator() {
+    const Tab = createBottomTabNavigator();
 
-
-export default function TabsNavigator() {
     return (
         <Tab.Navigator
             screenOptions={({ route }) => ({
