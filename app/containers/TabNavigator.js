@@ -12,6 +12,7 @@ export default function TabNavigator() {
 
     return (
         <Tab.Navigator
+            initialRouteName="Courses"
             screenOptions={({ route }) => ({
                 tabBarIcon: ({ focused, color, size }) => {
                     let iconName;
