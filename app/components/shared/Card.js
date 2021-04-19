@@ -1,6 +1,8 @@
 import React from 'react'
 import { StyleSheet, Text, View, Image } from 'react-native'
 import { numSeparator } from "../../utils/priceSeparator"
+import CustomText from './CustomText'
+
 
 export default function Card({ title, image, price, teacher, time }) {
     return (
@@ -8,19 +10,32 @@ export default function Card({ title, image, price, teacher, time }) {
             <Image source={image} style={styles.courseImage} />
             <View style={{ padding: 20 }}>
 
-                <Text style={styles.title}>{title}</Text>
+                <CustomText
+                    size="3"
+                    fontFamily="yekan"
+                    styles={styles.title}>{title}</CustomText>
 
                 <View style={styles.courseDetails}>
-                    <Text style={styles.price}>
+                    <CustomText
+                        size="2"
+                        fontFamily="yekan"
+                        styles={styles.price}>
                         {`قیمت دوره: ${numSeparator(price)} تومان`}
-                    </Text>
-                    <Text style={styles.time}>زمان دوره: {time}</Text>
+                    </CustomText>
+
+                    <CustomText
+                        size="2"
+                        fontFamily="yekan"
+                        styles={styles.time}>زمان دوره: {time}</CustomText>
                 </View>
 
                 <View style={styles.userContainer}>
-                    <Text style={styles.teacher}>مدرس دوره: {teacher}</Text>
+                    <CustomText
+                        size="2"
+                        fontFamily="ih"
+                        styles={styles.teacher}>مدرس دوره: {teacher}</CustomText>
                 </View>
-                
+
             </View>
         </View>
     )
@@ -46,19 +61,9 @@ const styles = StyleSheet.create({
     },
     title: {
         marginBottom: 7,
-        fontFamily: "yekan",
-        fontSize: 20,
         alignSelf: "center"
     },
-    time: {
-        fontFamily: "yekan"
-    },
-    price: {
-        fontFamily: "yekan"
-    },
     teacher: {
-        fontFamily: "ih",
-        fontSize: 15,
         alignSelf: "center"
     }
 

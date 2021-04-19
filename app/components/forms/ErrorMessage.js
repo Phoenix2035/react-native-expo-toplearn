@@ -1,20 +1,26 @@
 import React from 'react'
 import { StyleSheet, Text } from 'react-native'
+import CustomText from '../shared/CustomText'
+
 
 export default function ErrorMessage({ error, visible }) {
 
     if (!visible || !error) return null
 
     return (
-        <Text style={styles.error}>{error}</Text>
+        <CustomText
+            size="2"
+            fontFamily="ih"
+            styles={styles.error}
+        >
+            {error}
+        </CustomText>
     )
 }
 
 const styles = StyleSheet.create({
     error: {
         color: "red",
-        fontFamily: "ih",
-        fontSize: 16,
         marginBottom: 8
     }
 })

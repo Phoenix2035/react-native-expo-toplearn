@@ -1,7 +1,8 @@
 import React from 'react'
-import { StyleSheet, Text, View, Image, ImageBackground, Button } from 'react-native'
+import { StyleSheet, View, Image, ImageBackground, Button } from 'react-native'
 
 import CustomButton from '../components/shared/CustomButton'
+import CustomText from "../components/shared/CustomText"
 
 export default function Welcome({ navigation }) {
     return (
@@ -12,8 +13,15 @@ export default function Welcome({ navigation }) {
         >
             <View style={styles.logoContainer}>
                 <Image style={styles.logo} source={require("../assets/logo.png")} />
-                <Text style={styles.firstText}>خودآموزی، کسب تجربه و ورود به بازار کار</Text>
+
+                <CustomText
+                    size="2.5"
+                    fontFamily="ih"
+                    styles={styles.firstText}>
+                    خودآموزی، کسب تجربه و ورود به بازار کار
+                </CustomText>
             </View>
+
             <View style={styles.buttonContainer}>
                 <CustomButton
                     title="ورود"
@@ -49,8 +57,6 @@ const styles = StyleSheet.create({
         height: 190
     },
     firstText: {
-        fontFamily: "ih",
-        fontSize: 25,
         top: 25,
         color: "white"
     }

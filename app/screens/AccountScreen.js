@@ -1,8 +1,10 @@
 import React from 'react'
-import { Text, View, StyleSheet, Image, TouchableOpacity, TouchableHighlight } from 'react-native'
+import { View, StyleSheet, Image, TouchableOpacity, TouchableHighlight } from 'react-native'
+import CustomText from '../components/shared/CustomText'
 import Icon from '../components/shared/Icon'
 import ItemSeparator from '../components/shared/ItemSeparator'
 import Screen from '../components/shared/Screen'
+
 
 
 export default function AccountScreen() {
@@ -14,8 +16,8 @@ export default function AccountScreen() {
                     source={require("../assets/person.jpg")}
                 />
                 <View style={styles.details}>
-                    <Text style={styles.title}>علی قدوسی</Text>
-                    <Text style={styles.subTitle}>aligodosi@gmail.com</Text>
+                    <CustomText size="2.5" fontFamily="ih" styles={styles.title}>علی قدوسی</CustomText>
+                    <CustomText size="2.2" fontFamily="ih" styles={styles.subTitle}>aligodosi@gmail.com</CustomText>
                 </View>
                 <TouchableOpacity
                     onPress={() => { }}
@@ -32,7 +34,7 @@ export default function AccountScreen() {
                 <View style={styles.container}>
                     <Icon name="logout" backgroundColor="tomato" />
                     <View style={styles.details}>
-                        <Text style={styles.title}>خروج از حساب کاربری</Text>
+                        <CustomText size="2.5" fontFamily="ih" styles={styles.title}>خروج از حساب کاربری</CustomText>
                     </View>
                 </View>
             </TouchableHighlight>
@@ -57,10 +59,6 @@ const styles = StyleSheet.create({
     details: {
         marginLeft: 10,
         justifyContent: "center"
-    },
-    title: {
-        fontFamily: "ih",
-        fontSize: 20
     },
     subTitle: {
         color: "#6e6969"

@@ -1,4 +1,5 @@
 import React from 'react'
+import { RFPercentage } from "react-native-responsive-fontsize"
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs"
 
 import Screen from '../components/shared/Screen'
@@ -17,7 +18,7 @@ export default function TopTabNavigator() {
                     inactiveTintColor: "gray",
                     labelStyle: {
                         fontFamily: "ih",
-                        fontSize: 14,
+                        fontSize: RFPercentage(1.9),
                     },
                     style: { backgroundColor: "#f8f4f4" }
                 }}

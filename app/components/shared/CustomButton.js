@@ -1,10 +1,18 @@
 import React from 'react'
-import { StyleSheet, Text, TouchableOpacity } from 'react-native'
+import { StyleSheet, TouchableOpacity } from 'react-native'
+import CustomText from './CustomText'
+
 
 export default function CustomButton({ title, onPress, color = "tomato" }) {
     return (
         <TouchableOpacity style={[styles.button, { backgroundColor: color }]} onPress={onPress}>
-            <Text style={styles.text}>{title}</Text>
+            <CustomText
+                size="2.3"
+                fontFamily="ih"
+                styles={styles.text}
+            >
+                {title}
+            </CustomText>
         </TouchableOpacity>
     )
 }
@@ -21,7 +29,5 @@ const styles = StyleSheet.create({
     },
     text: {
         color: "white",
-        fontFamily: "ih",
-        fontSize: 18
     }
 })

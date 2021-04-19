@@ -1,4 +1,5 @@
 import React from 'react';
+import {RFPercentage} from "react-native-responsive-fontsize"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -42,7 +43,7 @@ export default function TabNavigator() {
                 activeBackgroundColor: "lightcyan",
                 labelStyle: {
                     fontFamily: "ih",
-                    fontSize: 14
+                    fontSize: RFPercentage(2)
                 }
             }}
         >
