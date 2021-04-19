@@ -4,6 +4,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 
 import { AccountScreen, CoursesScreen, MyCoursesScreen } from "../screens"
+import TopTabNavigator from './TopTabNavigator';
 
 
 
@@ -50,7 +51,7 @@ export default function TabNavigator() {
                 tabBarLabel: "دوره های من",
                 tabBarBadge: 3
             }} />
-            <Tab.Screen name="Courses" component={CoursesScreen} options={{
+            <Tab.Screen name="Courses" component={TopTabNavigator} options={{
                 tabBarLabel: "دوره ها"
             }} />
             <Tab.Screen name="Account" component={AccountScreen} options={{
