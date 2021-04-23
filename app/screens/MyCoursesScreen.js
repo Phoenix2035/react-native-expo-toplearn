@@ -1,116 +1,140 @@
-import React, { useState } from 'react'
-import { View, StyleSheet, TouchableOpacity, FlatList } from 'react-native'
-import { MaterialCommunityIcons } from "@expo/vector-icons"
-import Swipeable from 'react-native-gesture-handler/Swipeable'
+import React, { useState } from "react";
+import {
+    Alert,
+    View,
+    StyleSheet,
+    TouchableOpacity,
+    FlatList,
+} from "react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import Swipable from "react-native-gesture-handler/Swipeable";
+import Screen from "./../components/shared/Screen";
+import CustomText from "./../components/shared/CustomText";
+import ItemSeparator from "./../components/shared/ItemSeparator";
 
-
-import CustomText from '../components/shared/CustomText'
-import ItemSeparator from '../components/shared/ItemSeparator'
-import Screen from '../components/shared/Screen'
+const confirmationAlert = (course, onPress) => {
+    return Alert.alert(
+        course.title,
+        `مطمئنی می خوای  ${course.title} رو از لیست دوره هات پاک کنی`,
+        [
+            {
+                text: "انصراف",
+                onPress: () => { },
+                style: "cancel",
+            },
+            {
+                text: "آره ، پاک کن",
+                onPress: onPress,
+            },
+        ],
+        { cancelable: false }
+    );
+};
 
 const deleteAction = (course, onPress) => {
     return (
-        <TouchableOpacity onPress={() => { }}>
-            <View style={{
-                width: 55,
-                height: "100%",
-                backgroundColor: "tomato",
-                justifyContent: "center",
-                alignItems: "center"
-            }}>
-
-                <MaterialCommunityIcons name="trash-can" size={35} color="#fff" />
-
+        <TouchableOpacity onPress={() => confirmationAlert(course, onPress)}>
+            <View
+                style={{
+                    backgroundColor: "tomato",
+                    width: 50,
+                    height: "100%",
+                    justifyContent: "center",
+                    alignItems: "center",
+                }}
+            >
+                <MaterialCommunityIcons
+                    name="trash-can"
+                    size={35}
+                    color="#fff"
+                />
             </View>
-
         </TouchableOpacity>
-    )
-}
+    );
+};
 
+const MyCoursesScreen = () => {
+    const [getMyCourses, setMyCourse] = useState([
+        { id: 1, title: "دوره جامع NodeJs", master: "یونس قربانی" },
+        { id: 2, title: "دوره جامع React Native", master: "یونس قربانی" },
+        { id: 3, title: "دوره جامع ReactJs", master: "یونس قربانی" },
+        { id: 4, title: "دوره جامع ElectronJs", master: "یونس قربانی" },
+        { id: 5, title: "دوره جامع جاوااسکریپت", master: "یونس قربانی" },
+    ]);
 
-export default function MyCoursesScreen() {
-
-    const [myCourses, setMyCourses] = useState([
-        { id: 1, title: "دوره جامع NodeJs", master: "علی قدوسی" },
-        { id: 2, title: "دوره جامع React Native", master: "علی قدوسی" },
-        { id: 3, title: "دوره جامع ReactJs", master: "علی قدوسی" },
-        { id: 4, title: "دوره جامع ElectronJs", master: "علی قدوسی" },
-        { id: 5, title: "دوره جامع جاوااسکریپت", master: "علی قدوسی" },
-        { id: 6, title: "دوره جامع جاوااسکریپت", master: "علی قدوسی" },
-        { id: 7, title: "دوره جامع جاوااسکریپت", master: "علی قدوسی" },
-    ])
+    const handleDelete = (course) => {
+        setMyCourse(getMyCourses.filter((c) => c.id !== course.id));
+    };
 
     return (
-        <Screen style={{ alignItems: 'center' }}>
+        <Screen style={{ alignItems: "center" }}>
             <View style={styles.title}>
                 <CustomText fontFamily="yekan" size="3" color="#fff">
                     لیست دوره های من
                 </CustomText>
             </View>
-
             <ItemSeparator height={5} />
-
-            <View style={{ width: "100%", flex: 1 }}>
+            <View style={{ width: "100%" }}>
                 <FlatList
-                    data={myCourses}
-                    keyExtractor={c => c.id.toString()}
+                    data={getMyCourses}
+                    keyExtractor={(c) => c.id.toString()}
                     renderItem={({ item }) => (
                         <View style={{ marginVertical: 7 }}>
-
                             <ItemSeparator height={3} />
-
-                            <Swipeable renderRightActions={deleteAction} >
-
+                            <Swipable
+                                renderRightActions={() =>
+                                    deleteAction(item, () => handleDelete(item))
+                                }
+                            >
                                 <View style={styles.container}>
-
                                     <View style={styles.details}>
-
                                         <CustomText
                                             fontFamily="yekan"
                                             size="2.5"
                                         >
                                             {item.title}
                                         </CustomText>
-
-                                        <CustomText fontFamily="yekan" size="1.6">
-                                            {`مدرس دوره: ${item.master}`}
+                                        <CustomText
+                                            fontFamily="yekan"
+                                            size="1.5"
+                                        >
+                                            {`مدرس دوره : ${item.master} `}
                                         </CustomText>
-
                                     </View>
-
                                 </View>
-                            </Swipeable>
-
+                            </Swipable>
                             <ItemSeparator height={3} />
-
                         </View>
                     )}
                 />
             </View>
         </Screen>
-    )
-}
+    );
+};
+
+export default MyCoursesScreen;
 
 const styles = StyleSheet.create({
-    container: {
-        flexDirection: "row",
-        justifyContent: "center",
-        padding: 15,
-        backgroundColor: "dodgerblue",
-    },
     title: {
-        width: "90%",
         marginVertical: 20,
         backgroundColor: "tomato",
         padding: 10,
         borderRadius: 10,
-        alignItems: "center"
+        width: "90%",
+        alignItems: "center",
+    },
+    container: {
+        flexDirection: "row",
+        padding: 15,
+        backgroundColor: "dodgerblue",
+        justifyContent: "center",
     },
     details: {
-        width: "100%",
+        marginLeft: 10,
         backgroundColor: "#f8f4f4",
+        width: "100%",
         padding: 10,
+        borderRadius: 14,
         alignItems: "center",
-        borderRadius: 14
     },
-})
+});

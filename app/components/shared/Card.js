@@ -1,13 +1,15 @@
 import React from 'react'
-import { StyleSheet, Text, View, Image } from 'react-native'
+import { StyleSheet, View, Image, ScrollView } from 'react-native'
 import { numSeparator } from "../../utils/priceSeparator"
 import CustomText from './CustomText'
 
 
-export default function Card({ title, image, price, teacher, time }) {
+export default function Card({ title, image, price, teacher, time, courseInfo = null }) {
     return (
         <View style={styles.card}>
-            <Image source={image} style={styles.courseImage} />
+            <Image resizeMode="contain" source={{
+                uri: `https://rnapi.ghorbany.dev/${image}`
+            }} style={styles.courseImage} />
             <View style={{ padding: 20 }}>
 
                 <CustomText
@@ -20,7 +22,8 @@ export default function Card({ title, image, price, teacher, time }) {
                         size="2"
                         fontFamily="yekan"
                         styles={styles.price}>
-                        {`قیمت دوره: ${numSeparator(price)} تومان`}
+                        قیمت دوره:
+                        {price === 0 ? " رایگان " : ` ${numSeparator(price)} تومان`}
                     </CustomText>
 
                     <CustomText
@@ -37,16 +40,32 @@ export default function Card({ title, image, price, teacher, time }) {
                 </View>
 
             </View>
+            {courseInfo ? (
+                <View style={{ flex: 1 }}>
+                    <CustomText fontFamily="yekan" size="4">
+                        توضیحات دوره :
+                    </CustomText>
+                    <ScrollView>
+                        <CustomText
+                            fontFamily="ih"
+                            size="1.7"
+                            styles={styles.courseInformation}
+                        >
+                            {courseInfo}
+                        </CustomText>
+                    </ScrollView>
+                </View>
+            ) : null}
         </View>
     )
 }
 
 const styles = StyleSheet.create({
     card: {
+        flex: 1,
         borderRadius: 15,
         backgroundColor: "white",
         marginBottom: 20,
-        overflow: "hidden"
     },
     courseImage: {
         width: "100%",
@@ -65,6 +84,11 @@ const styles = StyleSheet.create({
     },
     teacher: {
         alignSelf: "center"
+    },
+    courseInformation: {
+        textAlign: "justify",
+        marginVertical: 1,
+        lineHeight: 25,
     }
 
 })

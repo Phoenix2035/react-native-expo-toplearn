@@ -1,7 +1,7 @@
 import React from 'react'
 import { createStackNavigator } from "@react-navigation/stack";
 
-import { WelcomeScreen, LoginScreen, RegisterScreen } from "../screens"
+import { WelcomeScreen, LoginScreen, RegisterScreen, CourseDetailsScreen } from "../screens"
 
 import TabNavigator from "./TabNavigator";
 
@@ -14,6 +14,7 @@ export default function StackNavigator() {
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="Register" component={RegisterScreen} />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
+            <Stack.Screen name="CourseDetails" component={CourseDetailsScreen}/>
         </Stack.Navigator>
     )
 }
