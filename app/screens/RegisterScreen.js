@@ -1,7 +1,10 @@
-import React, { useState } from "react"
+import React from "react"
 import { StyleSheet, Text, View, Image, Keyboard, TouchableWithoutFeedback, ActivityIndicator } from "react-native"
 import { Formik } from "formik"
 import * as Yup from "yup"
+import { RFPercentage } from "react-native-responsive-fontsize"
+import Toast from "react-native-tiny-toast"
+
 
 import { CustomFormField, CustomFormik, SubmitButton } from "../components/forms"
 import Screen from "../components/shared/Screen"
@@ -27,18 +30,32 @@ const validationSchema = Yup.object().shape({
 
 
 export default function RegisterScreen({ navigation }) {
-    const [loading, setLoading] = useState(false)
 
     const handleUserRegister = async (user) => {
         try {
+            Toast.showLoading("ثبت نام کاربر...", {
+                position: Toast.position.CENTER,
+                textStyle: {
+                    fontFamily: "yekan",
+                    fontSize: RFPercentage("1.5")
+                },
+                shadow: true
+            })
             const status = await registerUser(user)
 
             if (status === 201) {
-                navigation.navigate("Login")
-                setLoading(false)
+                Toast.hide()
+                navigation.navigate("Login", { successRegister: true })
             } else {
-                console.log("Server Error")
-                setLoading(false)
+                Toast.hide()
+                Toast.show("خطایی رخ داده است", {
+                    position: Toast.position.CENTER,
+                    textStyle: {
+                        fontFamily: "yekan",
+                        fontSize: RFPercentage("1.5")
+                    },
+                    shadow: true
+                })
             }
 
         } catch (error) {
@@ -59,7 +76,6 @@ export default function RegisterScreen({ navigation }) {
                         passwordConfirm: ""
                     }}
                     onSubmit={user => {
-                        setLoading(true)
                         handleUserRegister(user)
                     }}
                     validationSchema={validationSchema}
@@ -112,12 +128,7 @@ export default function RegisterScreen({ navigation }) {
                     </View>
                 </CustomFormik>
 
-                {
-                    loading ?
-                        <ActivityIndicator style={styles.loadingContainer} size="large" color="tomato" animating={loading} />
-                        :
-                        null
-                }
+
 
             </Screen >
         </TouchableWithoutFeedback>
@@ -128,14 +139,6 @@ const styles = StyleSheet.create({
     container: {
         alignItems: "center",
         marginTop: 120
-    },
-    loadingContainer: {
-        flex: 1,
-        position: "absolute",
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
     },
     // logo: {
     //     width: 270,

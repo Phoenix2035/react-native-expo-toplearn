@@ -7,7 +7,6 @@ export const registerUser = async (user) => {
             `${http.url}/register`,
             JSON.stringify(user)
         )
-        console.log(status);
         return status
 
     } catch (error) {

@@ -11,10 +11,12 @@ export default function StackNavigator() {
     return (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Welcome" component={WelcomeScreen} />
-            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Login" component={LoginScreen} initialParams={{
+                successRegister:false
+            }} />
             <Stack.Screen name="Register" component={RegisterScreen} />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
-            <Stack.Screen name="CourseDetails" component={CourseDetailsScreen}/>
+            <Stack.Screen name="CourseDetails" component={CourseDetailsScreen} />
         </Stack.Navigator>
     )
 }

@@ -1,7 +1,10 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { StyleSheet, Text, View, Image, Keyboard, TouchableWithoutFeedback } from "react-native"
+import { RFPercentage } from "react-native-responsive-fontsize"
 import { Formik } from "formik"
 import * as Yup from "yup"
+import Toast from "react-native-tiny-toast"
+
 
 import { CustomFormField, CustomFormik, SubmitButton } from "../components/forms"
 import Screen from "../components/shared/Screen"
@@ -17,7 +20,20 @@ const validationSchema = Yup.object().shape({
 })
 
 
-export default function LoginScreen({ navigation }) {
+export default function LoginScreen({ navigation, route }) {
+
+    useEffect(() => {
+        if (route.params.successRegister) {
+            Toast.showSuccess("ثبت نام موفقیت آمیز بود", {
+                position: Toast.position.CENTER,
+                textStyle: {
+                    fontFamily: "yekan",
+                    fontSize: RFPercentage("1.5")
+                },
+                shadow: true
+            })
+        }
+    }, [])
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
