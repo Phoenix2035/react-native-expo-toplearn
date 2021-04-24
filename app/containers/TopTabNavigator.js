@@ -5,7 +5,7 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 
 import Screen from '../components/shared/Screen'
 import { CoursesScreen, NewCoursesScreen, TopCoursesScreen } from '../screens'
-import { fetchCourses } from "../api"
+import { fetchCourses } from "../api/courses"
 import Context from '../context'
 
 const TopTab = createMaterialTopTabNavigator()

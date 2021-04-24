@@ -1,10 +1,11 @@
-import React from "react"
-import { StyleSheet, Text, View, Image, Keyboard, TouchableWithoutFeedback } from "react-native"
+import React, { useState } from "react"
+import { StyleSheet, Text, View, Image, Keyboard, TouchableWithoutFeedback, ActivityIndicator } from "react-native"
 import { Formik } from "formik"
 import * as Yup from "yup"
 
 import { CustomFormField, CustomFormik, SubmitButton } from "../components/forms"
 import Screen from "../components/shared/Screen"
+import { registerUser } from "../api/users"
 
 
 
@@ -25,7 +26,25 @@ const validationSchema = Yup.object().shape({
 })
 
 
-export default function RegisterScreen() {
+export default function RegisterScreen({ navigation }) {
+    const [loading, setLoading] = useState(false)
+
+    const handleUserRegister = async (user) => {
+        try {
+            const status = await registerUser(user)
+
+            if (status === 201) {
+                navigation.navigate("Login")
+                setLoading(false)
+            } else {
+                console.log("Server Error")
+                setLoading(false)
+            }
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -39,7 +58,10 @@ export default function RegisterScreen() {
                         password: "",
                         passwordConfirm: ""
                     }}
-                    onSubmit={values => console.log(values)}
+                    onSubmit={user => {
+                        setLoading(true)
+                        handleUserRegister(user)
+                    }}
                     validationSchema={validationSchema}
                 >
                     <CustomFormField
@@ -89,6 +111,14 @@ export default function RegisterScreen() {
                         />
                     </View>
                 </CustomFormik>
+
+                {
+                    loading ?
+                        <ActivityIndicator style={styles.loadingContainer} size="large" color="tomato" animating={loading} />
+                        :
+                        null
+                }
+
             </Screen >
         </TouchableWithoutFeedback>
     )
@@ -98,6 +128,14 @@ const styles = StyleSheet.create({
     container: {
         alignItems: "center",
         marginTop: 120
+    },
+    loadingContainer: {
+        flex: 1,
+        position: "absolute",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
     },
     // logo: {
     //     width: 270,
