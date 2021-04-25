@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import NetInfo from "@react-native-community/netinfo"
-import { Alert, BackHandler, StyleSheet, View, Image, ImageBackground, Button } from 'react-native'
+import { Alert, BackHandler, StyleSheet, View, Image, ImageBackground } from 'react-native'
 
 import CustomButton from '../components/shared/CustomButton'
 import CustomText from "../components/shared/CustomText"

@@ -1,12 +1,13 @@
 import React from 'react';
-import { View, StyleSheet } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
+import {View} from "react-native";
+import {MaterialIcons} from "@expo/vector-icons";
 
 function Icon({
-    name,
-    size = 40,
-    backgroundColor = "#000",
-    iconColor = "#fff" }) {
+                  name,
+                  size = 40,
+                  backgroundColor = "#000",
+                  iconColor = "#fff"
+              }) {
     return (
         <View style={{
             width: size,
@@ -16,7 +17,7 @@ function Icon({
             justifyContent: "center",
             alignItems: "center"
         }}>
-            <MaterialIcons name={name} color={iconColor} size={size * .5} />
+            <MaterialIcons name={name} color={iconColor} size={size * .5}/>
 
         </View>
     )

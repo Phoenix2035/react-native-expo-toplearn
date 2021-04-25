@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
-import { RFPercentage } from "react-native-responsive-fontsize";
-import { StyleSheet } from "react-native";
+import React, {useEffect} from "react";
+import {RFPercentage} from "react-native-responsive-fontsize";
+import {StyleSheet} from "react-native";
 import Screen from "./../components/shared/Screen";
 import Card from "./../components/shared/Card";
 
-const CourseDetailsScreen = ({ navigation, route }) => {
+const CourseDetailsScreen = ({navigation, route}) => {
     if (!route.params.course) return null;
 
     useEffect(() => {
@@ -23,7 +23,7 @@ const CourseDetailsScreen = ({ navigation, route }) => {
     }, [navigation])
 
 
-    const { _id, title, price, imageUrl, info } = route.params.course;
+    const {_id, title, price, imageUrl, info} = route.params.course;
 
     return (
         <Screen style={styles.container}>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import {
     Alert,
     View,
@@ -6,8 +6,8 @@ import {
     TouchableOpacity,
     FlatList,
 } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import Swipable from "react-native-gesture-handler/Swipeable";
+import {MaterialCommunityIcons} from "@expo/vector-icons";
+import Swipeable from 'react-native-gesture-handler/Swipeable';
 import Screen from "./../components/shared/Screen";
 import CustomText from "./../components/shared/CustomText";
 import ItemSeparator from "./../components/shared/ItemSeparator";
@@ -19,7 +19,8 @@ const confirmationAlert = (course, onPress) => {
         [
             {
                 text: "انصراف",
-                onPress: () => { },
+                onPress: () => {
+                },
                 style: "cancel",
             },
             {
@@ -27,7 +28,7 @@ const confirmationAlert = (course, onPress) => {
                 onPress: onPress,
             },
         ],
-        { cancelable: false }
+        {cancelable: false}
     );
 };
 
@@ -55,11 +56,11 @@ const deleteAction = (course, onPress) => {
 
 const MyCoursesScreen = () => {
     const [getMyCourses, setMyCourse] = useState([
-        { id: 1, title: "دوره جامع NodeJs", master: "یونس قربانی" },
-        { id: 2, title: "دوره جامع React Native", master: "یونس قربانی" },
-        { id: 3, title: "دوره جامع ReactJs", master: "یونس قربانی" },
-        { id: 4, title: "دوره جامع ElectronJs", master: "یونس قربانی" },
-        { id: 5, title: "دوره جامع جاوااسکریپت", master: "یونس قربانی" },
+        {id: 1, title: "دوره جامع NodeJs", master: "یونس قربانی"},
+        {id: 2, title: "دوره جامع React Native", master: "یونس قربانی"},
+        {id: 3, title: "دوره جامع ReactJs", master: "یونس قربانی"},
+        {id: 4, title: "دوره جامع ElectronJs", master: "یونس قربانی"},
+        {id: 5, title: "دوره جامع جاوااسکریپت", master: "یونس قربانی"},
     ]);
 
     const handleDelete = (course) => {
@@ -67,21 +68,21 @@ const MyCoursesScreen = () => {
     };
 
     return (
-        <Screen style={{ alignItems: "center" }}>
+        <Screen style={{alignItems: "center"}}>
             <View style={styles.title}>
                 <CustomText fontFamily="yekan" size="3" color="#fff">
                     لیست دوره های من
                 </CustomText>
             </View>
-            <ItemSeparator height={5} />
-            <View style={{ width: "100%" }}>
+            <ItemSeparator height={5}/>
+            <View style={{width: "100%"}}>
                 <FlatList
                     data={getMyCourses}
                     keyExtractor={(c) => c.id.toString()}
-                    renderItem={({ item }) => (
-                        <View style={{ marginVertical: 7 }}>
-                            <ItemSeparator height={3} />
-                            <Swipable
+                    renderItem={({item}) => (
+                        <View style={{marginVertical: 7}}>
+                            <ItemSeparator height={3}/>
+                            <Swipeable
                                 renderRightActions={() =>
                                     deleteAction(item, () => handleDelete(item))
                                 }
@@ -102,8 +103,8 @@ const MyCoursesScreen = () => {
                                         </CustomText>
                                     </View>
                                 </View>
-                            </Swipable>
-                            <ItemSeparator height={3} />
+                            </Swipeable>
+                            <ItemSeparator height={3}/>
                         </View>
                     )}
                 />

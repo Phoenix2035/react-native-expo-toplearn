@@ -1,16 +1,16 @@
 import React from 'react'
-import { StyleSheet, View, Image, ScrollView } from 'react-native'
-import { numSeparator } from "../../utils/priceSeparator"
+import {StyleSheet, View, Image, ScrollView} from 'react-native'
+import {numSeparator} from "../../utils/priceSeparator"
 import CustomText from './CustomText'
 
 
-export default function Card({ title, image, price, teacher, time, courseInfo = null }) {
+export default function Card({title, image, price, teacher, time, courseInfo = null}) {
     return (
         <View style={styles.card}>
             <Image resizeMode="contain" source={{
                 uri: `https://rnapi.ghorbany.dev/${image}`
-            }} style={styles.courseImage} />
-            <View style={{ padding: 20 }}>
+            }} style={styles.courseImage}/>
+            <View style={{padding: 20}}>
 
                 <CustomText
                     size="3"
@@ -41,7 +41,7 @@ export default function Card({ title, image, price, teacher, time, courseInfo = 
 
             </View>
             {courseInfo ? (
-                <View style={{ flex: 1 }}>
+                <View style={{flex: 1}}>
                     <CustomText fontFamily="yekan" size="4">
                         توضیحات دوره :
                     </CustomText>

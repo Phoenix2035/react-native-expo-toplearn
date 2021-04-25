@@ -1,8 +1,8 @@
 import React from "react"
-import { StyleSheet, View } from "react-native"
+import {StyleSheet, View} from "react-native"
 import Constants from "expo-constants"
 
-export default function Screen({ style, children }) {
+export default function Screen({style, children}) {
     return (
         <View style={[styles.screen, style]}>
             {children}

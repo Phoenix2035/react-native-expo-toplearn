@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet } from "react-native"
 import { RFPercentage } from "react-native-responsive-fontsize"
-import Toast from "react-native-tiny-toast"
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs"
 
 import Screen from '../components/shared/Screen'
 import { CoursesScreen, NewCoursesScreen, TopCoursesScreen } from '../screens'
 import { fetchCourses } from "../api/courses"
+import { loadingToast } from '../utils/toast'
 import Context from '../context'
+import Toast from "react-native-tiny-toast";
 
 const TopTab = createMaterialTopTabNavigator()
 
@@ -17,23 +17,13 @@ export default function TopTabNavigator() {
     useEffect(() => {
         try {
             const fetchData = async () => {
-
-                Toast.showLoading("در حال بارگذاری", {
-                    position: Toast.position.CENTER,
-                    textStyle: {
-                        fontFamily: "yekan",
-                        fontSize: RFPercentage("1.5")
-                    },
-                    shadow: true
-                })
-
+                loadingToast("در حال بارگذاری...")
                 const courses = await fetchCourses()
                 setCourses(courses)
-
                 Toast.hide()
             }
-
             fetchData()
+
         } catch (error) {
             console.log(error)
             Toast.hide()

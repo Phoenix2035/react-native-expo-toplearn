@@ -1,11 +1,11 @@
 import React from 'react'
-import { StyleSheet, TouchableOpacity } from 'react-native'
+import {StyleSheet, TouchableOpacity} from 'react-native'
 import CustomText from './CustomText'
 
 
-export default function CustomButton({ title, onPress, color = "tomato" }) {
+export default function CustomButton({title, onPress, color = "tomato"}) {
     return (
-        <TouchableOpacity style={[styles.button, { backgroundColor: color }]} onPress={onPress}>
+        <TouchableOpacity style={[styles.button, {backgroundColor: color}]} onPress={onPress}>
             <CustomText
                 size="2.3"
                 fontFamily="ih"

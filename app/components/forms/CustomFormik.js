@@ -1,7 +1,7 @@
 import React from "react"
-import { Formik } from "formik"
+import {Formik} from "formik"
 
-export default function CustomFormik({ initialValues, onSubmit, validationSchema, children }) {
+export default function CustomFormik({initialValues, onSubmit, validationSchema, children}) {
     return (
         <Formik
             initialValues={initialValues}

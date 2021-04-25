@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { StyleSheet, FlatList, View, Text, Image } from 'react-native'
+import { StyleSheet, FlatList } from 'react-native'
 import Card from '../components/shared/Card'
 import Screen from '../components/shared/Screen'
 import Context from '../context'
@@ -8,7 +8,7 @@ import Context from '../context'
 
 export default function NewCoursesScreen() {
 
-    const { courses, loading } = useContext(Context)
+    const { courses } = useContext(Context)
 
     return (
         <Screen style={styles.container}>

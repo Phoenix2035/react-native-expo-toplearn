@@ -1,8 +1,8 @@
 import React from "react"
-import { StyleSheet, View, TextInput } from "react-native"
-import { MaterialCommunityIcons } from "@expo/vector-icons"
+import {StyleSheet, View, TextInput} from "react-native"
+import {MaterialCommunityIcons} from "@expo/vector-icons"
 
-export default function CustomTextInput({ icon, ...otherProps }) {
+export default function CustomTextInput({icon, ...otherProps}) {
     return (
         <View style={styles.container}>
             <TextInput style={styles.text} {...otherProps} />
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     },
     icon: {
         alignSelf: "center",
-        
+
     },
     text: {
         width: "90%",

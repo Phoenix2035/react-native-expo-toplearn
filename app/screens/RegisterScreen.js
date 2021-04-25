@@ -1,9 +1,9 @@
 import React from "react"
-import { StyleSheet, Text, View, Image, Keyboard, TouchableWithoutFeedback, ActivityIndicator } from "react-native"
-import { Formik } from "formik"
+import { StyleSheet, View, Keyboard, TouchableWithoutFeedback } from "react-native"
 import * as Yup from "yup"
-import { RFPercentage } from "react-native-responsive-fontsize"
-import Toast from "react-native-tiny-toast"
+import { loadingToast, showToast } from "../utils/toast"
+import Toast from "react-native-tiny-toast";
+
 
 
 import { CustomFormField, CustomFormik, SubmitButton } from "../components/forms"
@@ -21,7 +21,7 @@ const validationSchema = Yup.object().shape({
         .email("ایمیل معتبر نمی باشد"),
     password: Yup.string()
         .required("این فیلد الزامی می باشد")
-        .min(6, "کلمه عبور نباید کمتر از 6 کاراکتر باشد")
+        .min(5, "کلمه عبور نباید کمتر از 5 کاراکتر باشد")
         .max(12, "کلمه عبور نباید بیشتر از 12 کاراکتر باشد"),
     passwordConfirm: Yup.string()
         .required("تکرار رمز عبور الزامی می باشد")
@@ -33,14 +33,8 @@ export default function RegisterScreen({ navigation }) {
 
     const handleUserRegister = async (user) => {
         try {
-            Toast.showLoading("ثبت نام کاربر...", {
-                position: Toast.position.CENTER,
-                textStyle: {
-                    fontFamily: "yekan",
-                    fontSize: RFPercentage("1.5")
-                },
-                shadow: true
-            })
+            loadingToast("ثبت نام کاربر...")
+
             const status = await registerUser(user)
 
             if (status === 201) {
@@ -48,14 +42,7 @@ export default function RegisterScreen({ navigation }) {
                 navigation.navigate("Login", { successRegister: true })
             } else {
                 Toast.hide()
-                Toast.show("خطایی رخ داده است", {
-                    position: Toast.position.CENTER,
-                    textStyle: {
-                        fontFamily: "yekan",
-                        fontSize: RFPercentage("1.5")
-                    },
-                    shadow: true
-                })
+                showToast("خطایی رخ داده است")
             }
 
         } catch (error) {

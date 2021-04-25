@@ -1,9 +1,9 @@
 import React from 'react'
-import { StyleSheet, Text } from 'react-native'
+import {StyleSheet, Text} from 'react-native'
 import CustomText from '../shared/CustomText'
 
 
-export default function ErrorMessage({ error, visible }) {
+export default function ErrorMessage({error, visible}) {
 
     if (!visible || !error) return null
 
