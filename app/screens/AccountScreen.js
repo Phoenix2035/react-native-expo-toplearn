@@ -1,12 +1,22 @@
 import React from 'react'
 import {View, StyleSheet, Image, TouchableOpacity, TouchableHighlight} from 'react-native'
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {StackActions} from "@react-navigation/native"
+
 import CustomText from '../components/shared/CustomText'
 import Icon from '../components/shared/Icon'
 import ItemSeparator from '../components/shared/ItemSeparator'
 import Screen from '../components/shared/Screen'
 
 
-export default function AccountScreen() {
+export default function AccountScreen({navigation}) {
+
+    const handleLogout = async () => {
+        await AsyncStorage.removeItem("token")
+        await AsyncStorage.removeItem("userId")
+        navigation.dispatch(StackActions.replace("Welcome"))
+    }
+
     return (
         <Screen style={styles.screen}>
             <View style={styles.container}>
@@ -30,8 +40,7 @@ export default function AccountScreen() {
 
             <ItemSeparator height={10}/>
 
-            <TouchableHighlight underlayColor="#f8f4f4" onPress={() => {
-            }}>
+            <TouchableHighlight underlayColor="#f8f4f4" onPress={handleLogout}>
                 <View style={styles.container}>
                     <Icon name="logout" backgroundColor="tomato"/>
                     <View style={styles.details}>

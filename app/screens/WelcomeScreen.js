@@ -1,9 +1,14 @@
-import React, { useEffect } from 'react'
+import React, {useEffect} from 'react'
 import NetInfo from "@react-native-community/netinfo"
-import { Alert, BackHandler, StyleSheet, View, Image, ImageBackground } from 'react-native'
+import {Alert, BackHandler, StyleSheet, View, Image, ImageBackground} from 'react-native'
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {decodeToken} from "../utils/jwt";
+import {StackActions, useNavigationState} from "@react-navigation/native"
+
 
 import CustomButton from '../components/shared/CustomButton'
 import CustomText from "../components/shared/CustomText"
+import {showToast} from "../utils/toast";
 
 const exitAppAlert = () => {
     return Alert.alert(
@@ -15,20 +20,58 @@ const exitAppAlert = () => {
                 onPress: BackHandler.exitApp
             }
         ],
-        { cancelable: false }
+        {cancelable: false}
     )
 }
 
-export default function Welcome({ navigation }) {
+export default function Welcome({navigation}) {
+    const screenIndex = useNavigationState((state) => state.index);
+    useEffect(() => {
+        let currentCount = 0;
+
+        if (screenIndex <= 0) {
+            BackHandler.addEventListener("hardwareBackPress", () => {
+                if (currentCount === 1) {
+                    BackHandler.exitApp();
+                    return true;
+                }
+
+                currentCount += 1;
+                showToast("برای خروج دوباره دکمه برگشت را لمس بنمایید");
+
+                setTimeout(() => {
+                    currentCount = 0;
+                }, 1000);
+
+                return true;
+            });
+        }
+    }, []);
 
     useEffect(() => {
         const checkForNet = async () => {
             const state = await NetInfo.fetch()
             if (!state.isConnected) {
                 exitAppAlert()
+            } else {
+                const token = await AsyncStorage.getItem("token")
+                const userId = JSON.parse(await AsyncStorage.getItem("userId"))
+
+                if (token !== null && userId !== null) {
+                    const decodedToken = decodeToken(token)
+                    if (decodedToken.user.userId === userId) {
+                        // navigation.navigate("Home")
+                        navigation.dispatch(
+                            StackActions.replace("Home")
+                        )
+                    } else {
+                        await AsyncStorage.removeItem("token")
+                        await AsyncStorage.removeItem("userId")
+                        navigation.navigate("Login")
+                    }
+                }
             }
         }
-
         checkForNet()
     }, [])
 
@@ -39,7 +82,7 @@ export default function Welcome({ navigation }) {
             source={require("../assets/bg1.jpg")}
         >
             <View style={styles.logoContainer}>
-                <Image style={styles.logo} source={require("../assets/logo.png")} />
+                <Image style={styles.logo} source={require("../assets/logo.png")}/>
 
                 <CustomText
                     size="2.5"

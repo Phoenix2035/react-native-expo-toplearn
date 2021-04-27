@@ -35,7 +35,11 @@ export default function LoginScreen({navigation, route}) {
             if (status === 200) {
                 Toast.hide();
                 successToast("ورود موفقیت آمیز بود");
-                navigation.navigate("Home")
+                // navigation.navigate("Home")
+                navigation.reset({
+                    index: 0,
+                    routes: [{name: "Home"}]
+                }) // when login, reset and start at Home
             } else {
                 Toast.hide();
                 showToast("ایمیل کاربری یا کلمه عبور صحیح نمی باشد");

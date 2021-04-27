@@ -21,7 +21,8 @@ export const loginUser = async (user) => {
             `${http.url}/login`,
             JSON.stringify(user)
         );
-        await AsyncStorage.setItem("token", JSON.stringify(data.token));
+        await AsyncStorage.setItem("token", JSON.stringify(data.token))
+        await AsyncStorage.setItem("userId", JSON.stringify(data.userId))
         return status;
     } catch (err) {
         console.log(err);

@@ -1,5 +1,5 @@
 import Toast from "react-native-tiny-toast"
-import { RFPercentage } from "react-native-responsive-fontsize"
+import {RFPercentage} from "react-native-responsive-fontsize"
 
 
 export const successToast = message => {
@@ -27,7 +27,7 @@ export const loadingToast = message => {
 
 export const showToast = message => {
     Toast.show(message, {
-        position: Toast.position.CENTER,
+        position: Toast.position.BOTTOM,
         textStyle: {
             fontFamily: "yekan",
             fontSize: RFPercentage("1.5")

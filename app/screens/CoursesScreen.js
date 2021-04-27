@@ -1,12 +1,13 @@
 import React, {useContext} from "react";
 import {TouchableOpacity, StyleSheet, FlatList} from "react-native";
+
 import Screen from "./../components/shared/Screen";
 import Card from "./../components/shared/Card";
 import Context from "../context";
 
 const CoursesScreen = ({navigation}) => {
-
     const {courses} = useContext(Context)
+
 
     return (
         <Screen style={styles.container}>
