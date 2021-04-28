@@ -1,21 +1,21 @@
 import React from 'react';
-import {RFPercentage} from "react-native-responsive-fontsize"
-import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
-import {MaterialCommunityIcons} from "@expo/vector-icons";
+import { RFPercentage } from "react-native-responsive-fontsize"
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 
-import {AccountScreen, CoursesScreen, MyCoursesScreen} from "../screens"
+import { AccountScreen, CoursesScreen, MyCoursesScreen } from "../screens"
 import TopTabNavigator from './TopTabNavigator';
 
+const Tab = createBottomTabNavigator();
 
 export default function TabNavigator() {
-    const Tab = createBottomTabNavigator();
 
     return (
         <Tab.Navigator
             initialRouteName="Courses"
-            screenOptions={({route}) => ({
-                tabBarIcon: ({focused, color, size}) => {
+            screenOptions={({ route }) => ({
+                tabBarIcon: ({ focused, color, size }) => {
                     let iconName;
 
                     if (route.name === "Courses") {
@@ -50,13 +50,13 @@ export default function TabNavigator() {
             <Tab.Screen name="MyCourses" component={MyCoursesScreen} options={{
                 tabBarLabel: "دوره های من",
                 tabBarBadge: 3
-            }}/>
+            }} />
             <Tab.Screen name="Courses" component={TopTabNavigator} options={{
                 tabBarLabel: "دوره ها"
-            }}/>
+            }} />
             <Tab.Screen name="Account" component={AccountScreen} options={{
                 tabBarLabel: "اکانت من"
-            }}/>
+            }} />
 
         </Tab.Navigator>
     )
