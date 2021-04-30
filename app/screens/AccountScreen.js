@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState, useEffect } from "react"
 import { View, StyleSheet, Image, TouchableOpacity, TouchableHighlight } from 'react-native'
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from "@react-native-async-storage/async-storage"
 import { StackActions } from "@react-navigation/native"
 import { useSelector } from "react-redux"
+import * as ImagePicker from "expo-image-picker"
 
 
 import CustomText from '../components/shared/CustomText'
@@ -12,7 +13,20 @@ import Screen from '../components/shared/Screen'
 
 
 export default function AccountScreen({ navigation }) {
+
+    const [getImage, setImage] = useState(null)
     const user = useSelector(state => state.user)
+
+    useEffect(() => {
+        const loadImage = async () => {
+            const imgUri = await AsyncStorage.getItem("Image")
+            if (imgUri !== null) {
+                setImage(imgUri)
+            }
+        }
+
+        loadImage()
+    }, [])
 
     const handleLogout = async () => {
         await AsyncStorage.removeItem("token")
@@ -20,13 +34,46 @@ export default function AccountScreen({ navigation }) {
         navigation.dispatch(StackActions.replace("Welcome"))
     }
 
+    const pickImage = async () => {
+        // let result = await ImagePicker.launchImageLibraryAsync({
+        //     mediaTypes: ImagePicker.MediaTypeOptions.All,
+        //     allowsEditing: true,
+        //     aspect: [4, 3],
+        //     quality: 1
+        // })
+
+        let result = await ImagePicker.launchCameraAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1
+        })
+
+        if (!result.cancelled) {
+            await AsyncStorage.setItem("Image", result.uri)
+            setImage(result.uri)
+        }
+    }
+
     return (
         <Screen style={styles.screen}>
             <View style={styles.container}>
-                <Image
-                    style={styles.image}
-                    source={require("../assets/person.jpg")}
-                />
+
+                <TouchableOpacity onPress={pickImage}>
+
+                    {getImage ? (
+                        <Image
+                            source={{ uri: getImage }}
+                            style={styles.image}
+                        />
+                    ) : (
+                        <Image
+                            style={styles.image}
+                            source={require("../assets/person.jpg")}
+                        />
+                    )}
+                </TouchableOpacity>
+
                 <View style={styles.details}>
                     <CustomText size="2.5" fontFamily="ih" styles={styles.title}>{user.fullname}</CustomText>
                     <CustomText size="2.2" styles={styles.subTitle}>{user.email}</CustomText>
