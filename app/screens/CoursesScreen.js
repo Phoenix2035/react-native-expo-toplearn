@@ -1,20 +1,20 @@
-import React, {useContext} from "react";
-import {TouchableOpacity, StyleSheet, FlatList} from "react-native";
+import React from "react"
+import { TouchableOpacity, StyleSheet, FlatList } from "react-native"
+import { useSelector } from "react-redux"
 
-import Screen from "./../components/shared/Screen";
-import Card from "./../components/shared/Card";
-import Context from "../context";
+import Screen from "./../components/shared/Screen"
+import Card from "./../components/shared/Card"
 
-const CoursesScreen = ({navigation}) => {
-    const {courses} = useContext(Context)
 
+const CoursesScreen = ({ navigation }) => {
+    const courses = useSelector(state => state.courses)
 
     return (
         <Screen style={styles.container}>
             <FlatList
                 data={courses}
                 keyExtractor={(course) => course._id.toString()}
-                renderItem={({item}) => (
+                renderItem={({ item }) => (
                     <TouchableOpacity
                         onPress={() =>
                             navigation.navigate("CourseDetails", {

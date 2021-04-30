@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { I18nManager } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import AppLoading from "expo-app-loading";
+import { Provider } from "react-redux"
+import { store } from "./app/redux/store"
 
 import getFonts from "./app/utils/fonts";
 import StackNavigator from "./app/containers/StackNavigator";
@@ -25,7 +27,9 @@ const App = () => {
 
     return (
         <NavigationContainer>
-            <StackNavigator />
+            <Provider store={store}>
+                <StackNavigator />
+            </Provider>
         </NavigationContainer>
     );
 }

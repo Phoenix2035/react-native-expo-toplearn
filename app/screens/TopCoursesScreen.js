@@ -1,13 +1,14 @@
-import React, { useContext } from 'react'
-import { StyleSheet, FlatList } from 'react-native'
+import React from 'react'
+import { StyleSheet, FlatList, TouchableOpacity } from 'react-native'
+import { useSelector } from "react-redux"
+
 import Card from '../components/shared/Card'
 import Screen from '../components/shared/Screen'
-import Context from '../context'
 
 
-export default function TopCoursesScreen() {
+export default function TopCoursesScreen({ navigation }) {
 
-    const { courses } = useContext(Context)
+    const courses = useSelector(state => state.courses)
 
     return (
         <Screen style={styles.container}>
@@ -15,13 +16,21 @@ export default function TopCoursesScreen() {
                 data={courses}
                 keyExtractor={course => course._id.toString()}
                 renderItem={({ item }) => (
-                    <Card
-                        title={item.title}
-                        time="15:00:00"
-                        price={item.price}
-                        image={item.imageUrl}
-                        teacher="علی قدوسی"
-                    />
+                    <TouchableOpacity
+                        onPress={() =>
+                            navigation.navigate("CourseDetails", {
+                                course: item,
+                            })
+                        }
+                    >
+                        <Card
+                            title={item.title}
+                            time="15:00:00"
+                            price={item.price}
+                            image={item.imageUrl}
+                            teacher="علی قدوسی"
+                        />
+                    </TouchableOpacity>
                 )}
             />
         </Screen>

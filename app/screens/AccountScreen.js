@@ -1,7 +1,9 @@
 import React from 'react'
-import {View, StyleSheet, Image, TouchableOpacity, TouchableHighlight} from 'react-native'
+import { View, StyleSheet, Image, TouchableOpacity, TouchableHighlight } from 'react-native'
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {StackActions} from "@react-navigation/native"
+import { StackActions } from "@react-navigation/native"
+import { useSelector } from "react-redux"
+
 
 import CustomText from '../components/shared/CustomText'
 import Icon from '../components/shared/Icon'
@@ -9,7 +11,8 @@ import ItemSeparator from '../components/shared/ItemSeparator'
 import Screen from '../components/shared/Screen'
 
 
-export default function AccountScreen({navigation}) {
+export default function AccountScreen({ navigation }) {
+    const user = useSelector(state => state.user)
 
     const handleLogout = async () => {
         await AsyncStorage.removeItem("token")
@@ -25,24 +28,24 @@ export default function AccountScreen({navigation}) {
                     source={require("../assets/person.jpg")}
                 />
                 <View style={styles.details}>
-                    <CustomText size="2.5" fontFamily="ih" styles={styles.title}>علی قدوسی</CustomText>
-                    <CustomText size="2.2" fontFamily="ih" styles={styles.subTitle}>aligodosi@gmail.com</CustomText>
+                    <CustomText size="2.5" fontFamily="ih" styles={styles.title}>{user.fullname}</CustomText>
+                    <CustomText size="2.2" styles={styles.subTitle}>{user.email}</CustomText>
                 </View>
                 <TouchableOpacity
                     onPress={() => {
                     }}
-                    style={{alignSelf: "center", marginLeft: 20}}
+                    style={{ alignSelf: "center", marginLeft: 20 }}
                 >
 
-                    <Icon name="settings" backgroundColor="tomato"/>
+                    <Icon name="settings" backgroundColor="tomato" />
                 </TouchableOpacity>
             </View>
 
-            <ItemSeparator height={10}/>
+            <ItemSeparator height={10} />
 
             <TouchableHighlight underlayColor="#f8f4f4" onPress={handleLogout}>
                 <View style={styles.container}>
-                    <Icon name="logout" backgroundColor="tomato"/>
+                    <Icon name="logout" backgroundColor="tomato" />
                     <View style={styles.details}>
                         <CustomText size="2.5" fontFamily="ih" styles={styles.title}>خروج از حساب کاربری</CustomText>
                     </View>

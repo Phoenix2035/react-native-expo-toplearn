@@ -4,11 +4,13 @@ import { Alert, BackHandler, StyleSheet, View, Image, ImageBackground } from 're
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { decodeToken } from "../utils/jwt";
 import { StackActions, useNavigationState } from "@react-navigation/native"
+import { useDispatch } from "react-redux"
 
 
 import CustomButton from '../components/shared/CustomButton'
 import CustomText from "../components/shared/CustomText"
-import { showToast } from "../utils/toast";
+import { showToast } from "../utils/toast"
+import { userAction } from "../redux/actions"
 
 const confirmationAlert = () => {
     return Alert.alert(
@@ -26,9 +28,10 @@ const confirmationAlert = () => {
 
 const WelcomeScreen = ({ navigation }) => {
     const screenIndex = useNavigationState((state) => state.index);
+    const dispatch = useDispatch()
+
     useEffect(() => {
         let currentCount = 0;
-        console.log(screenIndex);
 
         if (screenIndex <= 0) {
             BackHandler.addEventListener("hardwareBackPress", () => {
@@ -51,20 +54,23 @@ const WelcomeScreen = ({ navigation }) => {
 
     useEffect(() => {
         const checkForNet = async () => {
-            const state = await NetInfo.fetch();
-            if (!state.isConnected) confirmationAlert();
+            const state = await NetInfo.fetch()
+            if (!state.isConnected) confirmationAlert()
             else {
-                const token = await AsyncStorage.getItem("token");
-                const userId = JSON.parse(await AsyncStorage.getItem("userId"));
+                const token = await AsyncStorage.getItem("token")
+                const userId = JSON.parse(await AsyncStorage.getItem("userId"))
 
                 if (token !== null && userId !== null) {
-                    const decodedToken = decodeToken(token);
+                    const decodedToken = decodeToken(token)
+                    
+                    dispatch(userAction(decodedToken.user))
+
                     if (decodedToken.user.userId === userId)
-                        navigation.dispatch(StackActions.replace("Home"));
+                        navigation.dispatch(StackActions.replace("Home"))
                     else {
-                        await AsyncStorage.removeItem("token");
-                        await AsyncStorage.removeItem("userId");
-                        navigation.navigate("Login");
+                        await AsyncStorage.removeItem("token")
+                        await AsyncStorage.removeItem("userId")
+                        navigation.navigate("Login")
                     }
                 }
             }

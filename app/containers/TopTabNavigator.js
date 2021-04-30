@@ -1,25 +1,24 @@
-import React, { useState, useEffect } from 'react'
+import React, {useEffect } from 'react'
 import { RFPercentage } from "react-native-responsive-fontsize"
+import { useDispatch } from "react-redux"
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs"
 
 import Screen from '../components/shared/Screen'
 import { CoursesScreen, NewCoursesScreen, TopCoursesScreen } from '../screens'
-import { fetchCourses } from "../api/courses"
 import { loadingToast } from '../utils/toast'
-import Context from '../context'
 import Toast from "react-native-tiny-toast";
+import { getCourses } from "../redux/actions"
 
 const TopTab = createMaterialTopTabNavigator()
 
 export default function TopTabNavigator() {
-    const [courses, setCourses] = useState([])
+    const dispatch = useDispatch()
 
     useEffect(() => {
         try {
             const fetchData = async () => {
                 loadingToast("در حال بارگذاری...")
-                const courses = await fetchCourses()
-                setCourses(courses)
+                dispatch(getCourses())
                 Toast.hide()
             }
             fetchData()
@@ -31,9 +30,6 @@ export default function TopTabNavigator() {
     }, [])
 
     return (
-        <Context.Provider value={{
-            courses
-        }}>
             <Screen>
                 <TopTab.Navigator
                     initialRouteName="AllCourses"
@@ -70,9 +66,7 @@ export default function TopTabNavigator() {
                             { tabBarLabel: "دوره های محبوب" }
                         } />
                 </TopTab.Navigator>
-
             </Screen>
-        </Context.Provider>
     )
 }
 
